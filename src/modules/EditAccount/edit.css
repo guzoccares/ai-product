@@ -1,0 +1,23 @@
+.modal-upload{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(248, 248, 248, 1);
+
+    z-index: 1000;
+   
+}
+
+.edit-overlay-style{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background: rgba(248, 248, 248, 1);
+
+
+    z-index: 1000;
+
+}

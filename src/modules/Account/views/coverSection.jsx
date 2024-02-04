@@ -1,16 +1,25 @@
 import React,{useState,useEffect} from 'react'
 import cover from "../../assets/orgcover1.png"
 import orgPic from "../../assets/orgcover.png"
-import EditProfile from '../../EditProfile'
+
 import {RiShareBoxFill} from "react-icons/ri"
 import { profileApi } from '../../EditProfile/api'
 import icon from "../../assets/orgIcon.jpeg"
 import eco from "../../assets/ecoIcon.jpeg"
+import EditProfile from '../../EditAccount'
+import { doc,getDoc,setDoc , updateDoc,collection,addDoc,getDocs,query,where,onSnapshot}  from "firebase/firestore";
+import { db } from '../../Firebase'
 
 
 export default function CoverSection({group}) {
-    console.log(group?.location,"groupp")
+    console.log(group,"group[pp")
     const [trigger,setTrigger]=useState(false)
+
+    const [group1,setgroup]=useState({})
+
+
+
+     console.log(group1,"edit >>>>>>>>>>>>")
 
     
   return (
@@ -63,30 +72,7 @@ export default function CoverSection({group}) {
                             {group?.name?.length >0?
                               <div className='flex flex-col'>
                                <h5 className='text-xl font-semibold w-full'>{group?.name}</h5>
-                                { group?.type?.length >0&&
-                                  <>
-                                    {group?.type==="eco"?
-                                          <div className='flex items-center space-x-1.5'>
-                                          <img 
-                                            src={eco}
-                                            className="w-2.5 h-3"
-                                          />
-                                          <h5 className='text-xs'>Ecosystem</h5>
-                                      </div>
-                                      :
-                                      <div className='flex items-center space-x-1.5'>
-                                      <img 
-                                        src={icon}
-                                        className="w-2.5 h-3"
-                                      />
-                                      <h5 className='text-xs'>Organization</h5>
-                                    </div>
-
-                                    }
-                                    </>
-                                
-
-                                }
+                               
                               </div>
                               :
                               <>
@@ -159,12 +145,7 @@ export default function CoverSection({group}) {
                 </div>
                
                   <div className='py-8 flex justify-end px-8'>
-                          <button
-                            style={{background: "rgba(236, 235, 254, 1)"}}
-                            className='text-blue-700 rounded-full px-8 text-sm py-1.5'
-                            >
-                                Edit
-                            </button>
+                       <EditProfile />
                     
                 </div>
 

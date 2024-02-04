@@ -81,7 +81,13 @@ const NewRoutes = () => {
   useEffect( ()=>{ 
     console.log(JSON.parse(user),"user")
     if(JSON.parse(user)?.id?.length >0){
-      setcurrentUser(JSON.parse(user)?.organizations[0])
+      const unsub = onSnapshot(doc(db,"organizations",JSON.parse(user)?.organizations[0]?.id), (doc) => {
+        console.log("Current data: ", doc.data());
+        // setgroup(doc.data())
+              setcurrentUser({...doc.data(),id:doc.id})
+       });
+      
+      // setcurrentUser(JSON.parse(user)?.organizations[0])
     }
  
   },[user])

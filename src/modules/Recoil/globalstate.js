@@ -8,12 +8,12 @@ export const accountTypeState =atom({
 
 export const groupState =atom({
    key:"hotel",
-   default:{}
+   default:{id:""}
 })
 
 export const userState =atom({
     key:"user",
-    default:{}
+    default:{id:""}
  })
 
 

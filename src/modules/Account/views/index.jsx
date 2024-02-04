@@ -16,7 +16,7 @@ export default function Account({currentUser}) {
     const group =useRecoilValue(userState)
     
     console.log(group,"group profile account")
-    const [profile,setUpdate]=useState()
+    const [profile,setUpdate]=useState({})
 
 
 
@@ -33,7 +33,7 @@ export default function Account({currentUser}) {
        
               }
 
-              const unsub = onSnapshot(doc(db,"individuals",group?.id), (doc) => {
+              const unsub = onSnapshot(doc(db,"organizations",group?.id), (doc) => {
                 console.log("Current data: ", doc.data());
                 setUpdate(doc.data())
                });
@@ -45,7 +45,7 @@ export default function Account({currentUser}) {
               // return docSnap.data()
              },[])
  
-    
+              console.log(profile,"ppppppo>>>")
   return (
         <NewLayout>
       
@@ -54,32 +54,8 @@ export default function Account({currentUser}) {
             <div className='flex w-full justify-center h-full '>
              
                 <div className='lg:w-1/2 w-full overflow-y-auto h-full no-scrollbar'>
-                  <CoverSection group={currentUser?.organizations[0]}/>
-                     {group?.type==="eco"?
-                         ""
-                        :
-                        <div className='py-6'>
-                            {/* <CreatePost group={group}/> */}
-                        </div>
-                        }
-
-                     <div className=''>
-                            {/* <EcoFeed group={group}/> */}
-                        </div>
-
-                    {/* {group?.type==="eco"?
-                        <div className=''>
-                            <EcoFeed group={group}/>
-                        </div>
-                      
-                      :
-                      <div className=''>
-                       <Posts 
-                         group={group}
-                       />
-                       </div>
-
-                   } */}
+                  <CoverSection group={group}/>
+                 
                   
                 </div>
        

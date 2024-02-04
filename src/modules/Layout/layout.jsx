@@ -63,6 +63,7 @@ const Header=()=>{
 
                {hover&&
                   <div className='absolute w-full flex justify-end h-96 px-28 z-30 mt-10' >
+                      
                     <div className='w-72 h-44 rounded-lg bg-white flex flex-col space-y-4 items-center py-3' 
                         onMouseOver={()=>setHover(true)}>
                            {[
@@ -96,6 +97,10 @@ const Header=()=>{
                            }
 
                     </div>
+
+                    <div className='flex items-center w-full justify-end'>
+                        <h5 className='text-sm font-semibold text-slate=500' onClick={()=>setHover(false)}>Close</h5>
+                      </div>
 
 
                   </div>
