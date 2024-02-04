@@ -80,7 +80,10 @@ const NewRoutes = () => {
   const user = localStorage.getItem("user");
   useEffect( ()=>{ 
     console.log(JSON.parse(user),"user")
-    setcurrentUser(JSON.parse(user))
+    if(JSON.parse(user)?.id?.length >0){
+      setcurrentUser(JSON.parse(user)?.organizations[0])
+    }
+ 
   },[user])
 
   useEffect( ()=>{

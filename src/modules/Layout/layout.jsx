@@ -29,10 +29,11 @@ export default function NewLayout({children}) {
 
 const Header=()=>{
     const currentUser =useRecoilValue(userState)
+    const [hover,setHover]=useState(false)
 
     console.log(currentUser,"new")
      return(
-        <div className='w-full flex  py-20 px-20 items-center'>
+        <div className='w-screen flex  py-20 px-20 items-center '>
              <div className='w-1/3'>
                    <img 
                      src={icon}
@@ -45,36 +46,63 @@ const Header=()=>{
                 
              </div>
              
-             <div className='w-1/3 flex justify-center'>
-                  {/* {currentUser?.img?.length >0 ?
-                     <Link to="/account">
-                    
-                        <img 
-                            src={currentUser?.img}
-                            className='lg:w-8 lg:h-6 w-6 h-6 rounded-full'
-                           
-                        />
-                         </Link>
-                    :
-                    <h5 className='rounded-full bg-blue-600 text-white font-semibold text-sm p-2 border-2 border-white lg:w-8 lg:h-8 w-6 h-6 flex items-center justify-center'
-                       
-                    >
-                           <Link to="/account">
-                        {currentUser?.firstName?.slice(0,1) +currentUser?.lastName?.slice(0,1)}
-                        </Link>
-
-                    </h5> */}
+             <div className='w-1/3 flex flex-col items-center relative spce-y-10'>
+         
 
                 
 
-                  <Link to="/account">
+         
                     
                     <img 
-                        src={currentUser?.organizations[0]?.img}
+                        src={currentUser?.img}
                         className='lg:w-8 lg:h-6 w-6 h-6 rounded-full'
+                        onClick={()=>setHover(true)}
                        
                     />
-                     </Link>
+
+
+               {hover&&
+                  <div className='absolute w-full flex justify-end h-96 px-28 z-30 mt-10' >
+                    <div className='w-72 h-44 rounded-lg bg-white flex flex-col space-y-4 items-center py-3' 
+                        onMouseOver={()=>setHover(true)}>
+                           {[
+                             {text:"Home",
+                              link:"/"
+
+                             },
+                             {text:"Messages",
+                             link:"/"
+
+                            },
+                            {text:"Profile",
+                            link:"/"
+
+                            },
+                             {text:"Settings",
+                             link:"/"
+
+                             }
+
+                            ].map((tab)=>{
+                              return(
+                                <Link>
+                                   
+                                      <h5 className='text-sm text-slate-500'>{tab?.text}</h5>
+                                </Link>
+
+                              )
+                            })
+
+                           }
+
+                    </div>
+
+
+                  </div>
+              }
+                
+                  
+           
 
 
                 

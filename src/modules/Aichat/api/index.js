@@ -7,7 +7,7 @@ export const aiAPi= {
      keywords:async function (text) {
 
 
-        const url=`http://127.0.0.1:8080/`
+        const url=`https://guzo-ai.onrender.com/ai`
     
 
         const config = {
