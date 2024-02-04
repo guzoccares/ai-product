@@ -67,25 +67,25 @@ const Header=()=>{
                         onMouseOver={()=>setHover(true)}>
                            {[
                              {text:"Home",
-                              link:"/"
+                              link:"/ai"
 
                              },
                              {text:"Messages",
-                             link:"/"
+                             link:"/ai-messenger"
 
                             },
                             {text:"Profile",
-                            link:"/"
+                            link:"/account"
 
                             },
                              {text:"Settings",
-                             link:"/"
+                             link:""
 
                              }
 
                             ].map((tab)=>{
                               return(
-                                <Link>
+                                <Link to={tab?.link}>
                                    
                                       <h5 className='text-sm text-slate-500'>{tab?.text}</h5>
                                 </Link>

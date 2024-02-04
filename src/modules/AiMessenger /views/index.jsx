@@ -41,7 +41,7 @@ export default function AiMessenger() {
           try{
           
             console.log(currentUser?.id,"cur conv")
-            const q = query(collection(db, "conversations"), where("members", "array-contains",currentUser?.organizations[0]?.id),orderBy("lastMessage", "desc"));
+            const q = query(collection(db, "conversations"), where("members", "array-contains",currentUser?.id),orderBy("lastMessage", "desc"));
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
               const convs= [];
               querySnapshot.forEach((doc) => {

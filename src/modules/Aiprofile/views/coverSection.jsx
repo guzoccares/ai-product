@@ -59,7 +59,7 @@ export default function CoverSection({group,account}) {
        const startConversation=async()=>{
         setLoading(true)
         try{
-            const response=await messageApi.startConversation(group,currentUser?.organizations[0])
+            const response=await messageApi.startConversation(group,currentUser)
             console.log(response,"msg res")
             setLoading(false)
             response && navigate(`/ai-messenger`)
