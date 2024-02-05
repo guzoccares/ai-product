@@ -13,6 +13,10 @@ import { doc, onSnapshot } from "firebase/firestore"
 import { db } from '../Firebase'
 import icon from "../assets/icon.png"
 import text from "../assets/guzotext.png"
+import { userApi } from './_api';
+import { useNavigate } from "react-router-dom";
+
+
 export default function NewLayout({children}) {
   return (
     <div className='w-full h-full  '>
@@ -28,6 +32,22 @@ export default function NewLayout({children}) {
 
 
 const Header=()=>{
+
+  let navigate = useNavigate();
+  const logout=async()=>{
+    localStorage.clear();
+    try{
+        const response =await userApi.logout()
+        console.log(response,"response")
+       
+        navigate(`/login`)
+
+    }catch(e){
+        console.log(e)
+    }
+
+}
+
     const currentUser =useRecoilValue(userState)
     const [hover,setHover]=useState(false)
 
@@ -64,7 +84,7 @@ const Header=()=>{
                {hover&&
                   <div className='absolute w-full flex justify-end  px-28 z-30 mt-10' >
                       
-                    <div className='w-72 h-44 rounded-lg bg-white flex flex-col space-y-4 items-center py-6' 
+                    <div className='w-72  rounded-lg bg-white flex flex-col space-y-4 items-center py-6' 
                         onMouseOver={()=>setHover(true)}>
                            {[
                              {text:"Home",
@@ -79,17 +99,24 @@ const Header=()=>{
                             link:"/account"
 
                             },
-                             {text:"Settings",
+                             {text:"Logout",
                              link:""
 
                              }
 
                             ].map((tab)=>{
                               return(
-                                <Link to={tab?.link}>
-                                   
-                                      <h5 className='text-sm text-slate-500 hover:underline'>{tab?.text}</h5>
-                                </Link>
+                                      <>
+                                       {tab?.text=="Logout"?
+                                        <h5 className='text-sm text-red-500 hover:underline' onClick={logout}>{tab?.text}</h5>
+                                          :
+                                        
+                                          <Link to={tab?.link}>
+                                           <h5 className='text-sm text-slate-500 hover:underline'>{tab?.text}</h5>
+                                          </Link>
+                                          }
+                                          </>
+                             
 
                               )
                             })

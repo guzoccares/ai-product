@@ -28,6 +28,7 @@ import { MdChatBubbleOutline } from "react-icons/md";
 import { useLocation,useParams} from "react-router-dom";
 
 
+import { messageApi } from '../_api/message'
 
 
 
@@ -42,6 +43,8 @@ export default function  AiResources() {
     const currentUser =useRecoilValue(userState)
     const group =useRecoilValue(groupState)
     const [searchQuery,setQuery]=useState("")
+    const [areSearches,setSearches]=useState("")
+   
 
     const location =useLocation()
     const words=location?.state?.keywords
@@ -65,6 +68,9 @@ export default function  AiResources() {
                     const filteredArray = ecosystems.filter(obj =>
                     obj.tags.some(tag => lowercaseQualifierArray.includes(tag.toLowerCase()))
                     );
+
+                    filteredArray?.length===0 &&setSearches("No")
+                    filteredArray?.length >0 &&setSearches("")
 
             setEco(filteredArray)
     
@@ -95,7 +101,9 @@ export default function  AiResources() {
       const result=fuse.search(searchQuery)
 
       console.log(result,"result rerrr")
-      
+
+
+
   return (
 
     <NewLayout>
@@ -104,7 +112,7 @@ export default function  AiResources() {
     <div className='w-full flex justify-center'>
 
  
-              <div className='flex flex-col w-1/2 space-y-6 bg-slate-400 py-6 px-10' 
+              <div className='flex flex-col w-1/2 space-y-6 bg-slate-400 py-6 px-10 relative' 
                  style={{background: "#D9D9D9"}}
               >
                      <div className='flex flex-col space-y-2'>
@@ -116,7 +124,7 @@ export default function  AiResources() {
 
                            </div>
                            <div className=''>
-                              <h5 className='text-lg font-semibold'>Here are some resources that we think can help:</h5>
+                              <h5 className='text-lg font-semibold'>{areSearches?.length >0?"Nothing here matches your search.":"Here are some resources that we think can help:"}</h5>
 
                            </div>
 
@@ -192,17 +200,38 @@ export default function  AiResources() {
 
               }
          </>
-
-         {ecosystems?.length ===0&&
-            <div className='w-full flex justify-center '>
+         {areSearches?.length===0&&ecosystems?.length ===0&&
+            <div className='w-full flex justify-center top-0 absolute py-28'>
                <ClipLoader 
                     color={"rgba(62, 51, 221, 1)"}
                     loading={true}
                 />
-            </div>
+              </div>
             }
 
+        
+     {areSearches?.length >0&&
+               <div className='w-full flex flex-col  top-0 absolute py-28 space-y-2'>
+
+                  <h5 className="text-lg font-semibold">Suggestions:</h5>
+                  <ul className='flex flex-col space-y-2'>
+
+                 
+                  {["Make sure all words are spelled correctly","Try different search items","Try more general search items","Try fewer search items"].map((text)=>{
+                     return(
+                        <li className="text-lg font-semibold">{text}</li>
+                     )
+                  })
+
+                  }
+                   </ul>
+               </div>
+
+            }
+
+
       </div>
+   
 
       </div>
       </NewLayout>
@@ -231,6 +260,25 @@ const EcosystemCard=({eco,isPending,currentUser,isMember,group})=>{
               setErrorMsg(e)
           }
      }
+
+     const startConversation=async()=>{
+        setLoading(true)
+        try{
+            const response=await messageApi.startConversation(group,currentUser)
+            console.log(response,"msg res")
+            setLoading(false)
+            response && navigate(`/ai-messenger`)
+            setLoading(false)
+            
+  
+          }catch(e){
+            console.log(e)
+          }
+  
+        }
+      
+
+
     return(
         <div className='flex flex-col bg-white py-4 px-4'>
         <div className='flex flex-col items-center space-y-3'>
@@ -250,9 +298,16 @@ const EcosystemCard=({eco,isPending,currentUser,isMember,group})=>{
                 </div>
 
         <div className='flex flex-col items-center space-y-3 py-4'>
+          {!isLoading?
               <MdChatBubbleOutline 
                  className='text-blue-600 text-2xl '
+                 onClick={startConversation}
               />
+              :
+              <ClipLoader 
+              color='blue'
+            />
+           }
      
           </div>
 
