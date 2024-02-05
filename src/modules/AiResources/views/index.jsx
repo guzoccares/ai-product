@@ -264,7 +264,7 @@ const EcosystemCard=({eco,isPending,currentUser,isMember,group})=>{
      const startConversation=async()=>{
         setLoading(true)
         try{
-            const response=await messageApi.startConversation(group,currentUser)
+            const response=await messageApi.startConversation(eco,currentUser)
             console.log(response,"msg res")
             setLoading(false)
             response && navigate(`/ai-messenger`)
