@@ -44,7 +44,7 @@ export default function Login() {
                     setLoader(false)
                     localStorage.clear();
                     user?.id.length >0&&localStorage.setItem('user',JSON.stringify(user));
-                    user?.id.length >0&& navigate(`/ai}`)
+                    user?.id.length >0&& navigate(`/ai`)
 
                 //      console.log(user,"user")
                 //     const accounts=[...user?.ecosystems,...user?.organizations]
@@ -124,7 +124,7 @@ export default function Login() {
              setLoader(false)
              user?.id.length &&localStorage.clear();
              user?.id.length >0&&localStorage.setItem('user',JSON.stringify(user));
-             user?.id.length >0&& navigate(`/ai}`)
+             user?.id.length >0&& navigate(`/ai`)
             //  const accounts=[...user?.ecosystems,...user?.organizations]
             //  console.log(accounts,accounts?.length,"accc")
             //   if(accounts?.length >0){

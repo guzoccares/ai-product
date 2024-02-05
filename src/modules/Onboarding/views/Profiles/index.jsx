@@ -3,13 +3,18 @@ import React,{useEffect,useState} from 'react'
 import guzo from "../../../assets/guzoLogo.png"
 import {Outlet } from "react-router-dom"
 import { Link } from 'react-router-dom'
+import Org from "./org"
 export default function CreateProfiles() {
-   const [user,setUser]=useState()
+   // const [user,setUser]=useState()
+   const user = JSON.parse(localStorage.getItem("user"))
+   // console.log(JSON.parse(user),"user create ppp")
    useEffect(()=>{
     const user = localStorage.getItem("user");
-    console.log(JSON.parse(user),"user")
-    setUser(JSON.parse(user))
+   //  console.log(JSON.parse(user),"user create ppp")
+   //  setUser(JSON.parse(user))
      },[])
+
+     console.log(user,"user pppppppp")
    
   return (
    
