@@ -61,7 +61,7 @@ export default function AuthTypes() {
                   localStorage.clear();
                   localStorage.setItem('user',JSON.stringify(user));
    
-                  user?.id.length >0&& navigate(`/create-profile/`)
+                  user?.id.length >0&& navigate(`/ai`)
    
                   console.log(route,"rrrr")
 

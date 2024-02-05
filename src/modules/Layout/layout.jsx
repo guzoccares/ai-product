@@ -62,7 +62,7 @@ const Header=()=>{
 
 
                {hover&&
-                  <div className='absolute w-full flex justify-end h-96 px-28 z-30 mt-10' >
+                  <div className='absolute w-full flex justify-end  px-28 z-30 mt-10' >
                       
                     <div className='w-72 h-44 rounded-lg bg-white flex flex-col space-y-4 items-center py-3' 
                         onMouseOver={()=>setHover(true)}>
@@ -88,7 +88,7 @@ const Header=()=>{
                               return(
                                 <Link to={tab?.link}>
                                    
-                                      <h5 className='text-sm text-slate-500'>{tab?.text}</h5>
+                                      <h5 className='text-sm text-slate-500 hover:underline'>{tab?.text}</h5>
                                 </Link>
 
                               )
@@ -96,11 +96,13 @@ const Header=()=>{
 
                            }
 
+                      <div className='flex items-center w-full justify-end px-4 py-2'>
+                        <h5 className='text-sm font-semibold text-slate-500' onClick={()=>setHover(false)}>Close</h5>
+                      </div>
+
                     </div>
 
-                    <div className='flex items-center w-full justify-end'>
-                        <h5 className='text-sm font-semibold text-slate=500' onClick={()=>setHover(false)}>Close</h5>
-                      </div>
+                
 
 
                   </div>
