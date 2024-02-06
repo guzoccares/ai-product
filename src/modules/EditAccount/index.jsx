@@ -21,6 +21,7 @@ export default function EditProfile() {
     const [currentUser,setCurrentUser]=useRecoilState(userState)
     const [trigger,setTrigger]=useState(false)
     const [isLoading,setLoader]=useState(false)
+    const [tags,setTags]=useState([])
 
     const [profile,setUpdate]=useState()
     const [url,setUrl]=useState({
@@ -53,11 +54,12 @@ export default function EditProfile() {
     const edit=async()=>{
       setLoader(true)
          try{
-            const response =await profileApi.editProfile(group,file,profile)
+            console.log({...profile,tags:tags},"sunmt tag>>>>")
+            const response =await profileApi.editProfile(group,file,{...profile,tags:tags})
             response?.status&&setUpdate(response?.profile)
             response?.status&&setLoader(false)
             response?.status&&setTrigger(false)
-            // response?.status&&setUpdatedState(!isUpdate)
+            response?.status&&setUpdatedState(!isUpdate)
           }catch(e){
             console.log(e)
             setLoader(false)
@@ -165,6 +167,8 @@ export default function EditProfile() {
                                             <OrgForms 
                                               profile={profile}
                                               setUpdate={setUpdate}
+                                              tags={tags}
+                                              setTags={setTags}
                                             />
                                          }
                                         </>

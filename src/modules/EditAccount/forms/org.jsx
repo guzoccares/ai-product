@@ -9,13 +9,18 @@ import {MdLocationPin} from "react-icons/md"
 import ReactSelect from "react-select";
 import axios from "axios"
 import { BsFlag } from 'react-icons/bs'
+import { IoCloseOutline } from "react-icons/io5";
+import { IoIosAddCircle } from "react-icons/io";
 
 
-export default function OrgForms({profile,setUpdate}) {
+
+export default function OrgForms({profile,setUpdate,tags,setTags}) {
 
         const [country, setSelectedCountry] = useState();
         const [city, setSelectedCity] = useState();
         const [countries, setCountries] = useState(null);
+        // const [tags,setTags]=useState([])
+        const [tag,setTag]=useState("")
 
 
         useEffect(() => {
@@ -46,7 +51,25 @@ export default function OrgForms({profile,setUpdate}) {
             },
             }),
         };
+          
+        const createTag=()=>{
+            setTags(prevArray => [...prevArray, tag]);
 
+            setTag("")
+          
+         
+           
+  
+          }
+          console.log(profile,tags,"profile org edit")
+  
+          const remove=(indexToRemove)=>{
+   
+            const newArray = [...tags.slice(0, indexToRemove), ...tags.slice(indexToRemove + 1)];
+  
+            // Update the array state
+            setTags(newArray);
+          }
         
         return(
             <div className="py-6 flex flex-col space-y-4">
@@ -185,22 +208,55 @@ export default function OrgForms({profile,setUpdate}) {
                     <h5 className='font-light text-slate-500 text-sm '>Share something about you</h5>
 
                 </div>
-                <div className='flex flex-col w-full'>  
+                
+                <div className='flex flex-col w-full '>  
 
                         <label className='text-sm text-slate-600 font-semibold'>Descriptive Tags</label>
-                            <input 
-                                placeholder='Add tags separated by a comma'
-                                className=' py-2 px-4 w-full rounded-md text-sm outline-none'
-                                style={{background: "linear-gradient(0deg, #F2F2F2, #F2F2F2),linear-gradient(0deg, rgba(242, 242, 242, 0.6), rgba(242, 242, 242, 0.6))"}}
-                            />
+                           <div className='flex items-center space-x-4'>
+                              <input 
+                                    placeholder='Add tags separated by a comma...'
+                                    className=' py-2 px-4 w-full rounded-md text-sm outline-none'
+                                    style={{background: "linear-gradient(0deg, #F2F2F2, #F2F2F2),linear-gradient(0deg, rgba(242, 242, 242, 0.6), rgba(242, 242, 242, 0.6))"}}
+                                    value={tag}
+                                    onChange={(e)=>setTag(e.target.value)}
+                                />
+
+                                <IoIosAddCircle
+                                    className='text-4xl  text-blue-500 hover:text-blue-300' 
+                                    onClick={()=>createTag()}
+                                 />
+
+                           </div>
+
+
+                            
 
                             <h5 className='font-light text-slate-500 text-sm '>Tags help Guzo curate relevant connections and opportunities.</h5>
 
-                  </div>
+                     </div>
 
-           
-            
+                     <div className='flex flex-wrap  justify-start items-center space-x-3 py-4 '>
+                          
+                             {tags?.map((tword,index)=>{
+                                return(
+                                   <button className="rounded-lg py-0.5  px-2 border text-sm text-slate-600 font-light space-x-6 flex items-center justify-between ">
+                                     <span> {tword}</span>
+                                     <IoCloseOutline 
+                                       className='text-lg'
+                                       onClick={()=>remove(index)}
+                                     />
+
+                                    </button>
+                                )
+                             })
+
+                             }
+
+                        </div>
             </div>
+
+            
+            
         )
     }
 

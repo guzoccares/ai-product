@@ -117,10 +117,13 @@ export default function  AiResources() {
               >
                      <div className='flex flex-col space-y-2'>
                            <div className='flex justify-end'>
+                           {areSearches?.length ==0&&
                               <IoMdClose 
                                 className='text-xl '
                                 onClick={()=>window.history.go(-1)}
                               />
+                       
+                              }
 
                            </div>
                            <div className=''>
@@ -217,9 +220,17 @@ export default function  AiResources() {
                   <ul className='flex flex-col space-y-2'>
 
                  
-                  {["Make sure all words are spelled correctly","Try different search items","Try more general search items","Try fewer search items"].map((text)=>{
+                  {["Make sure all words are spelled correctly","Try different search items","Try more general search items","Try fewer search items","Go Back"].map((text)=>{
                      return(
+                        <>
+                        {text ==="Go Back"?
+                        <li className="text-lg font-light hover:underline text-blue-600"   onClick={()=>window.history.go(-1)}>{text}</li>
+                        :
                         <li className="text-lg font-semibold">{text}</li>
+
+                        }
+                        
+                        </>
                      )
                   })
 
